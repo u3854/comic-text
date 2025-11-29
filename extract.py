@@ -26,6 +26,7 @@ def extract_text(path):
 
     if images:= get_image_list(path):
         os.makedirs(os.path.join(path, OUTPUT_FOLDER), exist_ok=True)   
+        print("\nExtracting text...")
         for image, mask in tqdm(images):
             file = mask.split("\\")[-1]
             page = Image.open(image).convert("RGBA")
@@ -57,8 +58,11 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         folder = sys.argv[1].strip('"')
     else:
-        folder = input("(Balloon) Comic folder:").strip('"')
-    print("\nDetecting text...")
+        folder = input("(Balloon) Comic folder: ").strip('"')
     mask_text(path=folder)
-    print("\nExtracting text...")
     extract_text(path=folder)
+
+    forward = input("Run overlay.py? (y/n): ").strip().lower()
+    if forward == "y":
+        from overlay import save_overlay
+        save_overlay(folder)

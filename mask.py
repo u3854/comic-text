@@ -11,7 +11,7 @@ def mask_text(path: str):
     mask_folder = os.path.join(path, "mask")
     os.makedirs(mask_folder, exist_ok=True)
     model = TextDetection(model_name="PP-OCRv5_server_det")
-
+    print("\nDetecting text...")
     for image in tqdm(images):
         if image.endswith(("jpg", "jpeg", "png")):
             filename = image.split(".")[0]
@@ -48,5 +48,5 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         folder = sys.argv[1].strip('"')
     else:
-        folder = input("(Balloon) Comic folder:").strip('"')
+        folder = input("(Balloon) Comic folder: ").strip('"')
     mask_text(path=folder)
