@@ -3,6 +3,7 @@ import numpy as np
 from PIL import Image
 import os
 from tqdm import tqdm
+from mask import mask_text
 
 OUTPUT_FOLDER = "text"
 
@@ -49,8 +50,15 @@ def extract_text(path):
             text_only.save(output_path)
 
 
-
 if __name__ == "__main__":
 
-    folder = input("(Balloon) Comic folder:").strip('"')
-    extract_text(path=folder)   
+    import sys
+
+    if len(sys.argv) > 1:
+        folder = sys.argv[1].strip('"')
+    else:
+        folder = input("(Balloon) Comic folder:").strip('"')
+    print("\nDetecting text...")
+    mask_text(path=folder)
+    print("\nExtracting text...")
+    extract_text(path=folder)

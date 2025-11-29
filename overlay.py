@@ -31,5 +31,10 @@ def save_overlay(path: str):
 
 if __name__ == "__main__":
 
-    folder = input("(Balloon) Comic folder:").strip('"')
-    save_overlay(folder)
+    import sys
+
+    if len(sys.argv) > 1:
+        folder = sys.argv[1].strip('"')
+    else:
+        folder = input("(Balloon) Comic folder:").strip('"')
+    save_overlay(path=folder)
